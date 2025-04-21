@@ -1,6 +1,6 @@
-export default async () => {
+export default async (req,res) => {
     const client_id = process.env.NOTION_CLIENT_ID;
-    const client_secret = PromiseRejectionEvent.env.NOTION_CLIENT_SECRET;
+    const client_secret = process.env.NOTION_CLIENT_SECRET;
     const redirect_uri = 'https://vercel-backend-teal-sigma.vercel.app/api/exchange-token';
 
     const code = req.query.code;
@@ -21,11 +21,11 @@ export default async () => {
     
         const data = await response.json();
         console.log('Access Token:', data);
-    
-        // Optional: Redirect back to your extension or show a success message
-        // res.redirect(`chrome-extension://<your-extension-id>/success.html?token=${data.access_token}`);
-        console.log(data.access_token);
-        res.status(201).json({data})
+        
+        
+        res.redirect(`https://send-data-to-chrome-extension.vercel.app/?token=${data.access_token}`);
+        // console.log(data.access_token);
+        // res.status(201).json({data})
       } catch (err) {
         console.error(err);
         res.status(500).send('OAuth failed');
