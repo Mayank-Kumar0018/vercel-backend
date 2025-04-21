@@ -34,6 +34,7 @@ export default async (req, res) => {
       console.log("Bookmark added:", data);
       if(!(res.status < 400)){
         throw new Error("invalid credentials")
+        
       }
       res.status(200).json({
         data,
